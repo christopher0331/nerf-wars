@@ -1,0 +1,195 @@
+/* Cyberpunk/Halo Theme - Global Styles */
+
+:root {
+  --neon-cyan: #4cc9f0;
+  --neon-blue: #3a86ff;
+  --dark-blue: #0a192f;
+  --darker-blue: #06101e;
+  --neon-purple: #7209b7;
+  --neon-red: #f72585;
+}
+
+/* Global page background */
+body {
+  background-color: var(--darker-blue);
+  color: var(--neon-cyan);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Grid pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(43, 108, 176, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(43, 108, 176, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Hexagon pattern */
+.bg-hexagon-pattern {
+  background-color: transparent;
+  background-image: 
+    radial-gradient(circle at center, rgba(43, 108, 176, 0.15) 2px, transparent 2px);
+  background-size: 15px 15px;
+}
+
+/* Diagonal lines pattern */
+.bg-diagonal-lines {
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      rgba(43, 108, 176, 0.1),
+      rgba(43, 108, 176, 0.1) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+}
+
+/* Circuit pattern */
+.bg-circuit-pattern {
+  background-image: 
+    linear-gradient(rgba(43, 108, 176, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 108, 176, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(43, 108, 176, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 108, 176, 0.05) 1px, transparent 1px);
+  background-size: 25px 25px, 25px 25px, 5px 5px, 5px 5px;
+}
+
+/* Glowing effects */
+.glow-cyan {
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.5), 0 0 20px rgba(76, 201, 240, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glow-cyan:hover {
+  box-shadow: 0 0 15px rgba(76, 201, 240, 0.7), 0 0 30px rgba(76, 201, 240, 0.5);
+}
+
+/* Cyberpunk buttons */
+.cyber-button {
+  background-color: rgba(30, 58, 138, 0.8);
+  color: rgb(103, 232, 249);
+  border: 1px solid rgba(6, 182, 212, 0.5);
+  padding: 0.5rem 1rem;
+  transition-property: all;
+  transition-duration: 300ms;
+  font-family: ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.cyber-button:hover {
+  background-color: rgb(30, 64, 175);
+  border-color: rgb(34, 211, 238);
+  box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.3);
+}
+
+.cyber-button-red {
+  background-color: rgba(127, 29, 29, 0.8);
+  color: rgb(252, 165, 165);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  padding: 0.5rem 1rem;
+  transition-property: all;
+  transition-duration: 300ms;
+  font-family: ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.cyber-button-red:hover {
+  background-color: rgb(153, 27, 27);
+  border-color: rgb(248, 113, 113);
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+}
+
+/* Form inputs */
+.cyber-input {
+  background-color: rgba(30, 58, 138, 0.2);
+  border: 1px solid rgba(8, 145, 178, 0.5);
+  color: rgb(207, 250, 254);
+  padding: 0.5rem 0.75rem;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+.cyber-input:focus {
+  border-color: rgba(6, 182, 212, 0.7);
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.5);
+}
+
+/* Card styles */
+.cyber-card {
+  background-color: rgba(30, 58, 138, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(8, 145, 178, 0.5);
+  border-radius: 0.25rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-card-header {
+  border-bottom: 1px solid rgba(8, 145, 178, 0.3);
+  padding: 0.5rem 1rem;
+  background-color: rgba(30, 58, 138, 0.4);
+  font-family: ui-monospace, monospace;
+  color: rgb(103, 232, 249);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+/* Section dividers */
+.cyber-divider {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-divider:before, 
+.cyber-divider:after {
+  height: 1px;
+  flex-grow: 1;
+  background-image: linear-gradient(to right, transparent, rgba(8, 145, 178), transparent);
+}
+
+.cyber-divider:before {
+  background-image: linear-gradient(to right, transparent, rgba(8, 145, 178), transparent);
+}
+
+.cyber-divider:after {
+  background-image: linear-gradient(to right, rgba(8, 145, 178), transparent, transparent);
+}
+
+/* Scanner effect animation */
+@keyframes scan {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 110%;
+  }
+}
+
+.scanner-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner-effect::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    to right,
+    transparent, 
+    rgba(76, 201, 240, 0.8), 
+    transparent
+  );
+  left: 0;
+  animation: scan 3s linear infinite;
+}
