@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '../../../lib/supabase'
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: Request) {
   try {
 

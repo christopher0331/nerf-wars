@@ -10,10 +10,11 @@
 // SPI: SCK=18, MOSI=23, MISO=19
 
 // ===== WiFi Credentials (Primary and Fallback) =====
-static const char WIFI_SSID_PRIMARY[] = "The Metropolitan WiFi";
-static const char WIFI_PASS_PRIMARY[] = "invitedclubs";
+static const char WIFI_SSID_PRIMARY[] = "Escape to the Dome";
+static const char WIFI_PASS_PRIMARY[] = "VisitElkhartLake";
 static const char WIFI_SSID_FALLBACK[] = "Not Your Mothers WiFi";
 static const char WIFI_PASS_FALLBACK[] = "240Blima35!!";
+
 
 // ===== Supabase =====
 static const char SUPABASE_URL[]    = "https://yyqbzhxwksmefrrfiuou.supabase.co/rest/v1/rfid_scans";

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { elevenLabsTTS, VOICES } from '../../lib/elevenLabsTTS'
+import { clientTTS, VOICES } from '../../lib/client-tts'
 import { playStationCaptured, speakText } from '../../lib/soundEffects'
 
 export default function AudioTestPage() {
@@ -28,7 +28,7 @@ export default function AudioTestPage() {
     setIsLoading(true)
     addResult('Testing ElevenLabs TTS...')
     try {
-      await elevenLabsTTS.speak('Testing ElevenLabs text to speech', VOICES.ARNOLD)
+      await clientTTS.speak('Testing ElevenLabs text to speech', { voiceId: VOICES.ARNOLD })
       addResult('✅ ElevenLabs TTS test completed')
     } catch (error) {
       addResult(`❌ ElevenLabs TTS failed: ${error}`)
@@ -36,34 +36,14 @@ export default function AudioTestPage() {
     setIsLoading(false)
   }
 
-  const testServerTTS = async () => {
+  const testClientTTS = async () => {
     setIsLoading(true)
-    addResult('Testing server-side TTS API...')
+    addResult('Testing client-side TTS...')
     try {
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: 'Testing server TTS API', voiceId: VOICES.ARNOLD })
-      })
-      
-      if (response.ok) {
-        const audioBuffer = await response.arrayBuffer()
-        addResult(`✅ Server TTS API working, got ${audioBuffer.byteLength} bytes`)
-        
-        // Try to play the audio
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
-        const audioBufferDecoded = await audioContext.decodeAudioData(audioBuffer)
-        const source = audioContext.createBufferSource()
-        source.buffer = audioBufferDecoded
-        source.connect(audioContext.destination)
-        source.start(0)
-        addResult('✅ Audio playback started')
-      } else {
-        const error = await response.json()
-        addResult(`❌ Server TTS API failed: ${response.status} - ${error.error}`)
-      }
+      await clientTTS.speak('Testing client-side TTS with ElevenLabs', { voiceId: VOICES.ARNOLD })
+      addResult('✅ Client-side TTS test completed')
     } catch (error) {
-      addResult(`❌ Server TTS API error: ${error}`)
+      addResult(`❌ Client-side TTS failed: ${error}`)
     }
     setIsLoading(false)
   }
@@ -83,24 +63,13 @@ export default function AudioTestPage() {
   const testAPIKey = async () => {
     addResult('Testing API key availability...')
     try {
-      // Test the server-side API key by making a test call
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: 'test' })
-      })
+      // Test the client-side API key
+      const isWorking = await clientTTS.testApiKey()
       
-      if (response.status === 500) {
-        const error = await response.json()
-        if (error.error.includes('API key not configured')) {
-          addResult('❌ ElevenLabs API key not configured on server')
-        } else {
-          addResult(`❌ Server error: ${error.error}`)
-        }
-      } else if (response.status === 400) {
-        addResult('✅ ElevenLabs API key is configured (got expected 400 for empty text)')
+      if (isWorking) {
+        addResult('✅ API key is working')
       } else {
-        addResult(`✅ ElevenLabs API key is working (status: ${response.status})`)
+        addResult('❌ API key not configured or invalid')
       }
     } catch (error) {
       addResult(`❌ Error testing API key: ${error}`)
@@ -185,11 +154,11 @@ export default function AudioTestPage() {
                 Test ElevenLabs TTS
               </button>
               <button
-                onClick={testServerTTS}
+                onClick={testClientTTS}
                 disabled={isLoading}
                 className="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded transition-colors disabled:opacity-50"
               >
-                Test Server TTS API
+                Test Client TTS
               </button>
               <button
                 onClick={testStationCapture}

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '../../../lib/supabase'
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic'
+
 // Sequence Game Types
 interface SequenceGameConfig {
   game_id: string

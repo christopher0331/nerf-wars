@@ -3,7 +3,7 @@
  * Enhanced with ElevenLabs TTS integration
  */
 
-import { elevenLabsTTS, VOICES } from './elevenLabsTTS'
+import { clientTTS, VOICES } from './client-tts'
 
 // Sound effect categories
 type SoundEffect = 'capture' | 'victory' | 'game_start' | 'warning'
@@ -51,7 +51,7 @@ export const playStationCaptured = async (stationName: string, teamName: string)
     announcementCache.set(cacheKey, now)
     announcementCache.set(stationKey, now)
     
-    return elevenLabsTTS.speak(message, VOICES.USER_VOICE)
+    return clientTTS.speak(message, { voiceId: VOICES.USER_VOICE })
   } catch (error) {
     console.error('Error playing station capture sound:', error)
     throw error
@@ -80,7 +80,7 @@ export const playVictory = async (teamName: string): Promise<void> => {
     // Cache this announcement
     announcementCache.set(cacheKey, now)
     
-    return elevenLabsTTS.speak(message, VOICES.USER_VOICE)
+    return clientTTS.speak(message, { voiceId: VOICES.USER_VOICE })
   } catch (error) {
     console.error('Error playing victory sound:', error)
     throw error
@@ -154,7 +154,7 @@ export const speakText = async (text: string, useElevenLabs: boolean = true): Pr
     console.log(`🎤 Speaking text: "${text}" (ElevenLabs: ${useElevenLabs})`)
     
     if (useElevenLabs) {
-      return elevenLabsTTS.speak(text, VOICES.ARNOLD)
+      return clientTTS.speak(text, { voiceId: VOICES.ARNOLD })
     }
 
     // Fallback to browser speech synthesis only if explicitly requested
